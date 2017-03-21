@@ -28,7 +28,7 @@ cmte_by_party <- function(party_arg) {
   committees %>%
     group_by(cmte_city) %>%
     filter(cmte_party_affiliation == party_arg) %>%
-    select(cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
+    select(cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name, cand_id)
 }
 
 democratic_cmte <- cmte_by_party("DEM")
