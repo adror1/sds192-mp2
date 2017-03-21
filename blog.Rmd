@@ -10,11 +10,13 @@ output: html_document
 
 
 ```{r, include=FALSE}
+library(tidyverse)
 load("house_elections.rda")
 load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
 ```
+<<<<<<< HEAD
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -35,6 +37,11 @@ republician_cmte <- committees%>%
 TeaParty <- committees%>%
   filter(cmte_party_affiliation == "TEA")%>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
+=======
+
+```{r}
+glimpse(house_elections)
+>>>>>>> a4d77fb20004fe75f737aab235541127f32c1264
 ```
 ```{r}
 incumbents <- house_elections%>%
