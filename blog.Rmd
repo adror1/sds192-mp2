@@ -25,16 +25,14 @@ library(tidyr)
 
 ```{r}
 democratic_cmte <- committees %>%
-  group_by(cmte_city) %>%
   filter(cmte_party_affiliation == "DEM") %>%
-  select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
+  select( cmte_name, cmtez_dsgn, cmte_city, cmte_state, connected_org_name)
 
 republician_cmte <- committees %>%
-  group_by(cmte_city) %>%
   filter(cmte_party_affiliation == "REP") %>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
 
-TeaParty <- committees %>%
+teaparty_cmte <- committees %>%
   filter(cmte_party_affiliation == "TEA") %>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
 
