@@ -24,21 +24,22 @@ library(tidyr)
 ##Tidying Data
 
 ```{r}
-democratic_cmte <- committees%>%
-  group_by(cmte_city)%>%
-  filter(cmte_party_affiliation == "DEM")%>%
+democratic_cmte <- committees %>%
+  group_by(cmte_city) %>%
+  filter(cmte_party_affiliation == "DEM") %>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
 
-republician_cmte <- committees%>%
-  group_by(cmte_city)%>%
-  filter(cmte_party_affiliation == "REP")%>%
+republician_cmte <- committees %>%
+  group_by(cmte_city) %>%
+  filter(cmte_party_affiliation == "REP") %>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
 
-TeaParty <- committees%>%
-  filter(cmte_party_affiliation == "TEA")%>%
+TeaParty <- committees %>%
+  filter(cmte_party_affiliation == "TEA") %>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
 
-incumbents <- house_elections%>%
-  filter(incumbent == "TRUE")%>%
-  select(candidate_name, party, primary_votes, general_votes, ge_winner, state, incumbent)
+incumbents <- house_elections %>%
+  filter(incumbent == "TRUE") %>%
+  select(candidate_name, party, general_votes, ge_winner, state, incumbent)
+
 ```
