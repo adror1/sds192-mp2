@@ -33,10 +33,8 @@ cmte_by_party <- function(party_arg) {
 
 democratic_cmte <- cmte_by_party("DEM")
 republican_cmte <- cmte_by_party("REP")
+teaparty_cmte <- cmte_by_party("TEA")
 
-teaparty_cmte <- committees %>%
-  filter(cmte_party_affiliation == "TEA") %>%
-  select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
 
 incumbents <- house_elections %>%
   filter(incumbent == "TRUE") %>%
