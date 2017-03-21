@@ -37,13 +37,7 @@ republician_cmte <- committees%>%
 TeaParty <- committees%>%
   filter(cmte_party_affiliation == "TEA")%>%
   select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
-=======
 
-```{r}
-glimpse(house_elections)
->>>>>>> a4d77fb20004fe75f737aab235541127f32c1264
-```
-```{r}
 incumbents <- house_elections%>%
   filter(incumbent == "TRUE")%>%
   select(candidate_name, party, primary_votes, general_votes, ge_winner, state, incumbent)
