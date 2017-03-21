@@ -24,13 +24,15 @@ library(tidyr)
 ##Tidying Data
 
 ```{r}
-democratic_cmte <- committees %>%
-  filter(cmte_party_affiliation == "DEM") %>%
-  select( cmte_name, cmtez_dsgn, cmte_city, cmte_state, connected_org_name)
+cmte_by_party <- function(party_arg) {
+  committees %>%
+    group_by(cmte_city) %>%
+    filter(cmte_party_affiliation == party_arg) %>%
+    select(cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
+}
 
-republician_cmte <- committees %>%
-  filter(cmte_party_affiliation == "REP") %>%
-  select( cmte_name, cmte_dsgn, cmte_city, cmte_state, connected_org_name)
+democratic_cmte <- cmte_by_party("DEM")
+republican_cmte <- cmte_by_party("REP")
 
 teaparty_cmte <- committees %>%
   filter(cmte_party_affiliation == "TEA") %>%
