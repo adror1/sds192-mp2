@@ -1,6 +1,6 @@
 ---
 title: "Mini-Project 2"
-author: "Your Name Here"
+authors: "Margaret Perry, Kendra Swanson, Arielle Dror"
 date: "March 24, 2017"
 output: html_document
 ---
@@ -36,7 +36,7 @@ republican_cmte <- cmte_by_party("REP")
 teaparty_cmte <- cmte_by_party("TEA")
 
 
-candidates %>%
+candidates_simple <- candidates %>%
   select(cand_id, cand_name, cand_party_affiliation, cand_office_state, cand_city)
 
 incumbents <- house_elections %>%
