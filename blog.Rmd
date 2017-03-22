@@ -16,7 +16,7 @@ load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
 ```
-<<<<<<< HEAD
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -38,5 +38,11 @@ teaparty_cmte <- cmte_by_party("TEA")
 incumbents <- house_elections %>%
   filter(incumbent == "TRUE") %>%
   select(candidate_name, party, general_votes, ge_winner, state, incumbent)
+
+```
+##Joining
+```{r}
+candidate_conribution <- contributions%>%
+  full_join(candidates_simple, by = "cand_id")
 
 ```
