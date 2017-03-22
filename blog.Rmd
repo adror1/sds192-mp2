@@ -40,6 +40,7 @@ candidates_simple <- candidates %>%
   select(cand_id, cand_name, cand_party_affiliation, cand_office_state, cand_city)
 
 ```
+
 ```{r}
 candidates_contributions <- contributions%>%
   full_join(candidates_simple, by = "cand_id")
