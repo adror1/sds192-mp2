@@ -46,3 +46,7 @@ candidate_conribution <- contributions%>%
   full_join(candidates_simple, by = "cand_id")
 
 ```
+```{r}
+candidates_contributions <- contributions%>%
+  full_join(candidates_simple, by = "cand_id")
+```
