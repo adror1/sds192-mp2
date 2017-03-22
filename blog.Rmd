@@ -44,7 +44,6 @@ candidates_simple <- candidates %>%
 ```{r}
 candidates_contributions <- contributions%>%
   full_join(candidates_simple, by = "cand_id")
-
 ```
 ##Goal
 The goal of this code is to tidy and a graph the data to disply the corralations between the cortrabutions and the success of the candiate. In the end we want three graphs displying Tea party, Rep party, and Dem party with hopefully votes on the y axis and the amount contributed on the x.
