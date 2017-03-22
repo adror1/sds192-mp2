@@ -16,7 +16,7 @@ load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
 ```
-<<<<<<< HEAD
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -42,8 +42,12 @@ candidates_simple <- candidates %>%
 ```
 
 ```{r}
-candidates_contributions <- contributions%>%
+candidates_contributions <- contributions %>%
   full_join(candidates_simple, by = "cand_id")
 ```
 ##Goal
-The goal of this code is to tidy and a graph the data to disply the corralations between the cortrabutions and the success of the candiate. In the end we want three graphs displying Tea party, Rep party, and Dem party with hopefully votes on the y axis and the amount contributed on the x.
+The goal of this code is to tidy and graph the data to display the corrolations between the cortributions and the success of the candidate. In the end we want three bar graphs displaying Tea party, Rep party, and Dem party with candidates on the x axis, contributions on the y axis, and colored according to whether each candidate won or lost.
+
+To handle contributions for vs contributions against: stack bar graph. Use value to differentiate for or against, and color to differentiate winning or losing (eg. a candidate who won will have contributions represented as dark blue for contributions for and light blue for contributions against, and a candidate who lost will have contributions represented as dark green for contributions for and light green for contributions against.)
+
+We're focusing just on general elections.
