@@ -143,7 +143,7 @@ candidates_contributions <- contributions %>%
 candidates_full <- house_elections %>%
   full_join(candidates_contributions, by = "cand_name") %>%
   select(cand_name, cand_party_affiliation, cmte_id, cmte_name, transaction_type, transaction_amt, general_votes, ge_winner, state, district) %>%
-  filter(state == "CA", transaction_amt > 0, general_votes > 0, transaction_type == "24A")
+  filter(state == "CA", transaction_amt > 0, general_votes > 0)
 
 
 
