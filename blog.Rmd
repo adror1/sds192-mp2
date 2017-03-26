@@ -29,9 +29,8 @@ load("contributions.rda")
 ##Renaming columns for clarity and easier join
 names(contributions)[names(contributions)=="name"] <- "cmte_name"
 
-names(house_elections)[names(house_elections)=="candidate_name"] <- "cand_name"
 house_elections <- house_elections %>%
-  mutate(cand_name = toupper(cand_name))
+  mutate(candidate_name = toupper(candidate_name))
 ```
 
 ```{r}
@@ -47,6 +46,7 @@ CA_house
 
 pres_cands <- office_state_cands(office_arg = "P", state_arg = "US")
 pres_cands
+
 ```
 
 ```{r}
@@ -81,20 +81,35 @@ CA_house_cand_against
 Transaction codes: 24A, 24N = against; 24E, 24F, 24C, 24K, 24Z = for
 
 ```{r}
-## Function that joins for, against, and candidates table
-cand_info <- function(for_table, against_table, cand_table) {
-  for_table %>%
-    full_join(against_table, by = "cand_name") %>%
-    left_join(cand_table, by = "cand_name") %>%
-    select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_election_yr, cand_office, cand_office_district, total_for, total_against)
+## Function that determines whether a candidate has won or lost given a table of candidates
+## **Note: only works for house elections** 
+cand_success <- function(data_arg) {
+  data_arg %>%
+    left_join(house_elections, by = c("cand_id" = "fec_id")) %>%
+    select(cand_name, primary_votes, general_votes, ge_winner)
 }
-
-## Example
-CA_cand_info <- cand_info(for_table = CA_house_cand_for, against_table = CA_house_cand_against, cand_table = CA_house)
-CA_cand_info
+cand_success(data_arg = office_state_cands(office_arg = "H", state_arg = "CA"))
 
 ```
 
+
+```{r}
+## Function that joins for, against, success, and candidates table given a table of candidates
+cand_info <- function(cand_table) {
+  cand_table %>%
+    left_join(cand_for(data_arg = cand_table), by = "cand_name") %>%
+    left_join(cand_against(data_arg = cand_table), by = "cand_name") %>%
+    left_join(cand_success(data_arg = cand_table), by = "cand_name") %>%
+    select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_election_yr, cand_office, cand_office_district, total_for, total_against, primary_votes, general_votes, ge_winner)
+}
+
+## Examples
+CA_house_cand_info <- cand_info(cand_table = CA_house)
+#CA_house_cand_info
+
+MO_house_cand_info <- cand_info(cand_table = office_state_cands(office_arg = "H", state_arg = "MO"))
+MO_house_cand_info
+```
 
 
 
