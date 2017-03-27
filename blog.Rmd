@@ -20,6 +20,9 @@ library(tidyverse)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(RColorBrewer)
+library(grDevices)
+library(colorRamps)
 load("house_elections.rda")
 load("candidates.rda")
 load("committees.rda")
@@ -104,18 +107,28 @@ cand_info <- function(cand_table) {
     mutate(total = ifelse(!is.na(total_against) & !is.na(total_for), total_for + total_against, 
                           ifelse(is.na(total_against), total_for, 
                                  ifelse(is.na(total_for), total_against, 0)))) %>%
-    select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_election_yr, cand_office, cand_office_district, total_for, total_against, total, primary_votes, general_votes, ge_winner)
+    mutate(prop_against=(total_against/total)*100) %>%
+    filter(total_for > 0 & total_against > 0 & general_votes > 0) %>%
+    select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_office, cand_office_district, total_for, total_against, total, general_votes, ge_winner, prop_against) %>%
+  group_by(general_votes)
 }
 
-## Examples
-CA_house_cand_info <- cand_info(cand_table = CA_house)
-CA_house_cand_info
 
-MO_house_cand_info <- cand_info(cand_table = office_state_cands(office_arg = "H", state_arg = "MO"))
-#MO_house_cand_info
+CA_house_cand_info <- cand_info(cand_table = office_state_cands(office_arg = "H", state_arg = "CA"))
+
+CA_house_cand_info
 ```
 
+```{r}
+candidate_graphic_1 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=prop_against))+coord_flip()+geom_bar(stat="identity")+scale_fill_continuous(low="firebrick1", high = "firebrick4")
 
+
+candidate_graphic_1
+```
+```{r}
+candidate_graphic_2 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=ge_winner))+coord_flip()+geom_bar(stat="identity")
+candidate_graphic_2
+```
 
 ## Old code
 
