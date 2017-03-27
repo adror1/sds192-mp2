@@ -156,4 +156,6 @@ MO_house_cand_info <- cand_info(cand_table = office_state_cands(office_arg = "H"
 
 ```{r}
 candidate_graphic <- ggplot(candidates_full, (cand_name, ))
+
 ```
+
