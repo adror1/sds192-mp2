@@ -110,7 +110,7 @@ cand_info <- function(cand_table) {
     mutate(prop_against=(total_against/total)*100) %>%
     filter(total_for > 0 & total_against > 0 & general_votes > 0) %>%
     select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_office, cand_office_district, total_for, total_against, total, general_votes, ge_winner, prop_against) %>%
-  group_by(general_votes)
+  arrange(desc(total))
 }
 
 
@@ -120,13 +120,12 @@ CA_house_cand_info
 ```
 
 ```{r}
-candidate_graphic_1 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=prop_against))+coord_flip()+geom_bar(stat="identity")+scale_fill_continuous(low="firebrick1", high = "firebrick4")+xlab("Candidate")+ylab("Total Donations")+scale_y_continuous(breaks = c(0, 2000000, 4000000, 6000000), labels = c("$0", "$2,000,000", "$4,000,000", "$6,000,000") )
-
+candidate_graphic_1 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=prop_against))+coord_flip()+geom_bar(stat="identity")+scale_fill_continuous(name= "Percentage of Donations\nAgainst Candidate", low="firebrick1", high = "firebrick4")+xlab("Candidate")+ylab("Total Donations")+scale_y_continuous(breaks = c(0, 2000000, 4000000, 6000000), labels = c("$0", "$2,000,000", "$4,000,000", "$6,000,000") ) + ggtitle("House Candidates in California with\nDonations For and Against")
 
 candidate_graphic_1
 ```
 ```{r}
-candidate_graphic_2 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=ge_winner))+coord_flip()+geom_bar(stat="identity")+xlab("Candidate")+ylab("Total Donations")+scale_y_continuous(breaks = c(0, 2000000, 4000000, 6000000), labels = c("$0", "$2,000,000", "$4,000,000", "$6,000,000") )
+candidate_graphic_2 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=ge_winner))+coord_flip()+geom_bar(stat="identity")+xlab("Candidate")+ylab("Total Donations")+scale_y_continuous(breaks = c(0, 2000000, 4000000, 6000000), labels = c("$0", "$2,000,000", "$4,000,000", "$6,000,000") ) + scale_fill_discrete("Result", breaks=c("N", "W"), labels=c("Loss", "Win"))+ggtitle("Results of Elections of House Candidates")
 candidate_graphic_2
 ```
 
