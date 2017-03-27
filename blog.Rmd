@@ -110,7 +110,7 @@ cand_info <- function(cand_table) {
     mutate(prop_against=(total_against/total)*100) %>%
     filter(total_for > 0 & total_against > 0 & general_votes > 0) %>%
     select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_office, cand_office_district, total_for, total_against, total, general_votes, ge_winner, prop_against) %>%
-  arrange(desc(total))
+  arrange((cand_office_district))
 }
 
 
