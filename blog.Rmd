@@ -120,13 +120,13 @@ CA_house_cand_info
 ```
 
 ```{r}
-candidate_graphic_1 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=prop_against))+coord_flip()+geom_bar(stat="identity")+scale_fill_continuous(low="firebrick1", high = "firebrick4")
+candidate_graphic_1 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=prop_against))+coord_flip()+geom_bar(stat="identity")+scale_fill_continuous(low="firebrick1", high = "firebrick4")+xlab("Candidate")+ylab("Total Donations")+scale_y_continuous(breaks = c(0, 2000000, 4000000, 6000000), labels = c("$0", "$2,000,000", "$4,000,000", "$6,000,000") )
 
 
 candidate_graphic_1
 ```
 ```{r}
-candidate_graphic_2 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=ge_winner))+coord_flip()+geom_bar(stat="identity")
+candidate_graphic_2 <- ggplot(CA_house_cand_info, aes(x=cand_name, y= total, fill=ge_winner))+coord_flip()+geom_bar(stat="identity")+xlab("Candidate")+ylab("Total Donations")+scale_y_continuous(breaks = c(0, 2000000, 4000000, 6000000), labels = c("$0", "$2,000,000", "$4,000,000", "$6,000,000") )
 candidate_graphic_2
 ```
 
