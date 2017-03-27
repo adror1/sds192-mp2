@@ -99,17 +99,20 @@ cand_success(data_arg = office_state_cands(office_arg = "H", state_arg = "CA"))
 cand_info <- function(cand_table) {
   cand_table %>%
     left_join(cand_for(data_arg = cand_table), by = "cand_name") %>%
-    left_join(cand_against(data_arg = cand_table), by = "cand_name") %>%
+    full_join(cand_against(data_arg = cand_table), by = "cand_name") %>%
     left_join(cand_success(data_arg = cand_table), by = "cand_name") %>%
-    select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_election_yr, cand_office, cand_office_district, total_for, total_against, primary_votes, general_votes, ge_winner)
+    mutate(total = ifelse(!is.na(total_against) & !is.na(total_for), total_for + total_against, 
+                          ifelse(is.na(total_against), total_for, 
+                                 ifelse(is.na(total_for), total_against, 0)))) %>%
+    select(cand_id, cand_name, cand_party_affiliation, cand_state, cand_election_yr, cand_office, cand_office_district, total_for, total_against, total, primary_votes, general_votes, ge_winner)
 }
 
 ## Examples
 CA_house_cand_info <- cand_info(cand_table = CA_house)
-#CA_house_cand_info
+CA_house_cand_info
 
 MO_house_cand_info <- cand_info(cand_table = office_state_cands(office_arg = "H", state_arg = "MO"))
-MO_house_cand_info
+#MO_house_cand_info
 ```
 
 
