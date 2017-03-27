@@ -167,4 +167,8 @@ candidate_graphic_2
 <!-- candidates_full -->
 <!-- ``` -->
 
+```{r}
+candidate_graphic <- ggplot(candidates_full, (cand_name, ))
+
+```
 
